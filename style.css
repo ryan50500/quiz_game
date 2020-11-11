@@ -58,3 +58,22 @@ form .option label{
 form .option:hover {
     background-color: rgb(23, 23, 24);
 }
+form .option input[type="radio"]:checked + label {
+    color: rgb(0, 238, 255);
+}
+form button {
+    width: 100%;
+    margin-top: 20px;
+    padding: 10px;
+    font-size: 1.3rem;
+    font-family: 'Nunito';
+    background-color: rgb(98, 100, 105);
+    border: none;
+    outline: none;
+    color: rgb(20, 20, 20);
+    cursor: pointer;
+    transition: .3s ease background-color;
+}
+button:hover {
+    background-color: rgb(145, 148, 155);
+}
