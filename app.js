@@ -26,7 +26,21 @@ async function quizApp(){
     options = [];
     answer = data[0].correct_answer;
     data[0].incorrect_answers.map(option => options.push(option));
+    options.splice(Math.floor(Math.random() * options.length +1), 0, answer);
+
+    // formulate questions
+    generateTemplate(question, options);
+    console.log(answer)
 }
+form.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    if(e.target.quiz.value){
+        checkQuiz(e.target.quiz.value);
+    }else{
+        return
+    }
+})
 
 async function fetchQuiz(){
     const response = await fetch(baseURL);
@@ -34,4 +48,33 @@ async function fetchQuiz(){
 
     console.log(data.results);
     return data.results;
+}
+
+// formulate questions
+function generateTemplate (question, options){
+
+    optionEl.innerHTML = '';
+    qusEl.innerHTML = question;
+    options.map( (option, index) =>{
+        const item = document.createElement('div');
+        item.classList.add('option');
+        item.innerHTML = `
+        <input type="radio" id="option${index+1}" value="${option}" name="quiz">
+        <label for="option${index+1}">${option}</label>
+        `
+        optionEl.appendChild(item);
+    })
+}
+
+function checkQuiz (selected) {
+    answeredQus++;
+    if(selected === answer){
+        score++
+    }
+    updateScoreBoard();
+}
+
+function updateScoreBoard(){
+    ScoreEl.innerText = score;
+    answeredEl.innerText = answeredQus;
 }
